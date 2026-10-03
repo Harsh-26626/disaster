@@ -46,14 +46,6 @@ app.use((err, req, res, next) => {
   });
 });
 
-<<<<<<< HEAD
-// Connect to database and start server
-async function startServer(port = PORT) {
-  try {
-    await connectDB();
-    return app.listen(port, () => {
-      console.log(`[Server] Running on port ${port} (http://localhost:${port})`);
-=======
 // Connect to database, start cron scheduler and listen for HTTP connections
 async function startServer() {
   try {
@@ -61,7 +53,6 @@ async function startServer() {
     initCronJobs();
     app.listen(PORT, () => {
       console.log(`[Server] Running on port ${PORT}`);
->>>>>>> 551d7023822e672fcb05029a706ba089cf80cdec
     });
   } catch (error) {
     console.error('[Server] Failed to start server:', error);
@@ -69,20 +60,7 @@ async function startServer() {
   }
 }
 
-<<<<<<< HEAD
-// Start automatically when run directly
-import { fileURLToPath } from 'url';
-const isMain = process.argv[1] && (
-  fileURLToPath(import.meta.url) === process.argv[1] ||
-  process.argv[1].endsWith('server.js')
-);
-
-if (isMain) {
-  startServer();
-}
-=======
 startServer();
->>>>>>> 551d7023822e672fcb05029a706ba089cf80cdec
 
 export { app, startServer };
 export default app;
