@@ -131,7 +131,8 @@ Citizen submits a ground report (flooded road, blocked route, shelter full, or r
 POST /api/report HTTP/1.1
 Host: localhost:5000
 Content-Type: application/json
-
+```
+```json
 {
   "type": "RESCUE",
   "description": "Elderly couple trapped on rooftop as ground floor inundated.",
@@ -173,11 +174,10 @@ Content-Type: application/json
 ```
 
 **Request (Hazard Report Example):**
-```http
 POST /api/report HTTP/1.1
 Host: localhost:5000
 Content-Type: application/json
-
+```json
 {
   "type": "FLOODED_ROAD",
   "description": "Severe road waterlogging near Market Gate.",
