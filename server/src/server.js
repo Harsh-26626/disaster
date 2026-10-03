@@ -55,11 +55,6 @@ async function startServer() {
     process.exit(1);
   }
 }
-
-app.listen(3000, () => {
-  console.log('[Server] Running on port 3000 (http://localhost:3000)');
-})
-
-// startServer();
+startServer();
 
 export default app;
