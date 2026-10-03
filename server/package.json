@@ -8,11 +8,9 @@
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
     "seed": "node seed.js",
-<<<<<<< HEAD
-    "test": "node test-chunk3.js"
-=======
-    "mock-alert": "node scripts/mockAlert.js"
->>>>>>> 551d7023822e672fcb05029a706ba089cf80cdec
+    "mock-alert": "node scripts/mockAlert.js",
+    "test": "node test-chunk3.js",
+    "fetch-population": "node scripts/fetchPopulation.js"
   },
   "dependencies": {
     "@google/genai": "^2.27.0",
