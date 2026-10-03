@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { createReport } from '../api.js';
 
-export default function ReportModal({ isOpen, onClose, selectedCoords, onEnableMapPick, onSuccess }) {
+export default function ReportModal({
+  isOpen = true,
+  onClose,
+  selectedCoords,
+  initialCoords,
+  onEnableMapPick,
+  onPickOnMap,
+  onSuccess
+}) {
   const [type, setType] = useState('FLOODED_ROAD');
   const [description, setDescription] = useState('');
   const [lat, setLat] = useState('');
@@ -17,14 +25,16 @@ export default function ReportModal({ isOpen, onClose, selectedCoords, onEnableM
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    if (selectedCoords) {
-      setLat(selectedCoords[0].toFixed(6));
-      setLng(selectedCoords[1].toFixed(6));
-    }
-  }, [selectedCoords]);
+  const activeCoords = selectedCoords || initialCoords;
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    if (activeCoords && Array.isArray(activeCoords) && activeCoords.length === 2) {
+      setLat(activeCoords[0].toFixed(6));
+      setLng(activeCoords[1].toFixed(6));
+    }
+  }, [activeCoords]);
+
+  if (isOpen === false) return null;
 
   const handleUseMyLocation = () => {
     if (!navigator.geolocation) {
@@ -147,7 +157,7 @@ export default function ReportModal({ isOpen, onClose, selectedCoords, onEnableM
               <button
                 type="button"
                 className="btn btn-secondary btn-sm"
-                onClick={onEnableMapPick}
+                onClick={onEnableMapPick || onPickOnMap}
               >
                 📍 Tap Location on Map
               </button>

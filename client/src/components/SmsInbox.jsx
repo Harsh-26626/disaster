@@ -25,11 +25,24 @@ export default function SmsInbox() {
 
   return (
     <div className="phone-page-layout">
-      <div className="top-nav-bar">
-        <Link to="/" className="back-link">← Return to Map</Link>
-        <span className="app-title">Government Emergency Alert Inbox</span>
-        <div style={{ width: '100px' }}></div>
-      </div>
+      {/* Top Navbar */}
+      <header className="page-header-nav">
+        <Link to="/" className="nav-back-btn">
+          <span>←</span> Back to Live Map
+        </Link>
+        <div className="nav-center-branding">
+          <span className="nav-brand-beacon">🚨</span>
+          <div>
+            <h3>EMERGENCY BROADCAST SIMULATOR</h3>
+            <span className="nav-sub">Official Citizen SMS Feed • Channel GOVT_ALERT_112</span>
+          </div>
+        </div>
+        <div className="nav-right-actions">
+          <Link to="/admin" className="nav-admin-link">
+            🛡️ Admin Command
+          </Link>
+        </div>
+      </header>
 
       <div className="phone-container">
         <div className="phone-mockup">
@@ -48,14 +61,14 @@ export default function SmsInbox() {
             <div className="avatar-circle">🚨</div>
             <div>
               <h3>GOVT_ALERT_112</h3>
-              <p>Official State Disaster Alert Channel</p>
+              <p>Official State Disaster Warning System</p>
             </div>
           </div>
 
           {/* SMS Messages Feed */}
           <div className="phone-messages-body">
             {loading && alerts.length === 0 ? (
-              <div className="phone-loading">Loading broadcast messages...</div>
+              <div className="phone-loading">Connecting to broadcast antenna...</div>
             ) : alerts.length === 0 ? (
               <div className="phone-empty-state">
                 <p>📲 No emergency broadcast alerts sent yet.</p>
@@ -76,7 +89,7 @@ export default function SmsInbox() {
 
                     <h4 className="sms-title">{alert.title}</h4>
                     <p className="sms-content">{alert.message}</p>
-                    
+
                     <div className="sms-footer">
                       <span>Source: {alert.source || 'MANUAL'}</span>
                       <span>Helpline: 112</span>
@@ -87,7 +100,7 @@ export default function SmsInbox() {
             )}
           </div>
 
-          {/* Smartphone Navigation Bar */}
+          {/* Smartphone Bottom Home Bar */}
           <div className="phone-bottom-bar">
             <div className="home-indicator"></div>
           </div>
