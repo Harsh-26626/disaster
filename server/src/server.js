@@ -44,11 +44,11 @@ app.use((err, req, res, next) => {
 });
 
 // Connect to database and start server
-async function startServer() {
+async function startServer(port = PORT) {
   try {
     await connectDB();
-    app.listen(PORT, () => {
-      console.log(`[Server] Running on port ${PORT} (http://localhost:${PORT})`);
+    return app.listen(port, () => {
+      console.log(`[Server] Running on port ${port} (http://localhost:${port})`);
     });
   } catch (error) {
     console.error('[Server] Failed to start server:', error);
@@ -56,10 +56,16 @@ async function startServer() {
   }
 }
 
-app.listen(3000, () => {
-  console.log('[Server] Running on port 3000 (http://localhost:3000)');
-})
+// Start automatically when run directly
+import { fileURLToPath } from 'url';
+const isMain = process.argv[1] && (
+  fileURLToPath(import.meta.url) === process.argv[1] ||
+  process.argv[1].endsWith('server.js')
+);
 
-// startServer();
+if (isMain) {
+  startServer();
+}
 
+export { app, startServer };
 export default app;

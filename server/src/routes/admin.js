@@ -1,4 +1,5 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import Zone from '../../models/Zone.js';
 import Report from '../../models/Report.js';
 import Alert from '../../models/Alert.js';
@@ -61,6 +62,10 @@ router.patch('/reports/:id', async (req, res, next) => {
       return res.status(400).json({
         error: `Invalid status. Must be one of: ${allowedStatuses.join(', ')}`
       });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: 'Invalid report ID' });
     }
 
     const report = await Report.findByIdAndUpdate(
