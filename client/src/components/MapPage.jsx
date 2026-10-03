@@ -121,7 +121,7 @@ export default function MapPage() {
           </div>
           <div className="brand-text">
             <div className="brand-title-row">
-              <h1>CIVIC DEFENSE</h1>
+              <h1>Sahayak</h1>
               <span className="live-status-pill">
                 <span className="live-pulse-dot"></span> LIVE 5s
               </span>
