@@ -5,6 +5,7 @@ import Report from '../../models/Report.js';
 import Alert from '../../models/Alert.js';
 import FeedItem from '../../models/FeedItem.js';
 import { adminAuth } from '../../middleware/auth.js';
+import { buildGovernmentSmsAlert } from '../utils/alertBuilder.js';
 import { runIngestion } from '../services/ingestionService.js';
 
 const router = express.Router();
@@ -92,12 +93,19 @@ router.post('/alerts', async (req, res, next) => {
 
     let alert;
     if (draftId) {
-      alert = await Alert.findById(draftId);
+      alert = await Alert.findById(draftId).populate('zone');
       if (!alert) {
         return res.status(404).json({ error: 'Draft alert not found' });
       }
+
       if (title) alert.title = title;
-      if (message) alert.message = message;
+      // If message is not provided, generate realistic government emergency SMS with nearest shelter/food/$near distance
+      if (message) {
+        alert.message = message;
+      } else {
+        alert.message = await buildGovernmentSmsAlert(alert.zone, alert.severity);
+      }
+
       alert.status = 'SENT';
       alert.sentAt = new Date();
       await alert.save();
@@ -112,7 +120,8 @@ router.post('/alerts', async (req, res, next) => {
       }
 
       const alertTitle = title || `GOVT ALERT: SEVERE WEATHER IN ${zone.name.toUpperCase()}`;
-      const alertMessage = message || `EMERGENCY ALERT for ${zone.name}: Severe flooding risk detected. Avoid low-lying river areas. Move to designated shelters immediately. Dial 112 for search & rescue assistance.`;
+      // Build SMS-style message under 300 chars if not provided
+      const alertMessage = message || (await buildGovernmentSmsAlert(zone));
 
       alert = new Alert({
         zone: zone._id,
