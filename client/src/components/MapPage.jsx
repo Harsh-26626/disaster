@@ -167,6 +167,10 @@ export default function MapPage() {
             {alerts.length > 0 && <span className="notification-badge">{alerts.length}</span>}
           </Link>
 
+          <Link to="/admin" className="header-nav-btn admin-btn" title="Government Command & Rescue Verification">
+            <span className="btn-icon">🛡️</span>
+            <span className="btn-text">Admin Command</span>
+          </Link>
         </div>
       </header>
 
