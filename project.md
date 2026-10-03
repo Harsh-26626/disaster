@@ -21,7 +21,7 @@ SMS with our own "phone inbox" page.
 - Backend: Node.js + Express + Mongoose, MongoDB (Atlas connection string via .env)
 - Frontend: React (Vite) + react-leaflet + plain CSS (or Tailwind), React Router
 - Live updates: polling every 5 seconds (NO websockets)
-- Chatbot: Anthropic Claude API called from one Express route (key in .env)
+- Chatbot: goggle gemini 3 API called from one Express route (key in .env)
 - Scheduling: node-cron
 - Monorepo: /server and /client
 - Use environment variables for all secrets (MONGO_URI, ANTHROPIC_API_KEY, ADMIN_PASSWORD)

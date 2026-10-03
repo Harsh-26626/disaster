@@ -1,5 +1,7 @@
 import dotenv from 'dotenv';
+import path from 'path';
 dotenv.config();
+dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 
 import mongoose from 'mongoose';
 import { connectDB } from './src/db.js';
