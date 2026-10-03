@@ -9,7 +9,9 @@
     "dev": "node --watch src/server.js",
     "seed": "node seed.js",
     "mock-alert": "node scripts/mockAlert.js",
-    "test": "node test-chunk3.js",
+    "test": "jest --config jest.config.cjs --passWithNoTests",
+    "test:watch": "jest --config jest.config.cjs --watch",
+    "test:coverage": "jest --config jest.config.cjs --coverage",
     "fetch-population": "node scripts/fetchPopulation.js"
   },
   "dependencies": {
@@ -19,5 +21,13 @@
     "express": "^4.21.2",
     "mongoose": "^8.9.5",
     "node-cron": "^3.0.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.9",
+    "@babel/preset-env": "^7.26.9",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^10.1.4",
+    "supertest": "^7.0.0"
   }
 }
