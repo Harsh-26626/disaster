@@ -4,6 +4,7 @@ import Report from '../../models/Report.js';
 import Alert from '../../models/Alert.js';
 import FeedItem from '../../models/FeedItem.js';
 import { adminAuth } from '../../middleware/auth.js';
+import { runIngestion } from '../services/ingestionService.js';
 
 const router = express.Router();
 
@@ -130,8 +131,11 @@ router.post('/alerts', async (req, res, next) => {
 // POST /api/admin/feeds/refresh -> manual refresh endpoint for demos
 router.post('/feeds/refresh', async (req, res, next) => {
   try {
-    // Scaffold hook for Chunk 1 ingestion refresh
-    res.json({ message: 'Feeds refresh initiated', timestamp: new Date() });
+    const result = await runIngestion();
+    res.json({
+      message: 'Feeds refreshed successfully',
+      ...result
+    });
   } catch (error) {
     next(error);
   }

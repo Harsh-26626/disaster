@@ -1,9 +1,12 @@
 import dotenv from 'dotenv';
+import path from 'path';
 dotenv.config();
+dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 
 import express from 'express';
 import cors from 'cors';
 import { connectDB } from './db.js';
+import { initCronJobs } from './cron.js';
 
 import mapRouter from './routes/map.js';
 import reportRouter from './routes/report.js';
@@ -43,12 +46,13 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Connect to database and start server
+// Connect to database, start cron scheduler and listen for HTTP connections
 async function startServer() {
   try {
     await connectDB();
+    initCronJobs();
     app.listen(PORT, () => {
-      console.log(`[Server] Running on port ${PORT} (http://localhost:${PORT})`);
+      console.log(`[Server] Running on port ${PORT}`);
     });
   } catch (error) {
     console.error('[Server] Failed to start server:', error);
@@ -56,10 +60,6 @@ async function startServer() {
   }
 }
 
-app.listen(3000, () => {
-  console.log('[Server] Running on port 3000 (http://localhost:3000)');
-})
-
-// startServer();
+startServer();
 
 export default app;
